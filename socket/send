@@ -1,0 +1,1 @@
+curl -X PUT http://82.130.47.13:51888/characteristics --header "Content-Type:Application/json" --header "authorization:325-68-629" --data "{\"characteristics\":[{\"aid\":$1,\"iid\":$2,\"value\":$3}]}"

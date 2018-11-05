@@ -1,0 +1,30 @@
+.weatherIcon {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 50%;
+}
+
+.windSpeedIcon {
+    width: 80%;
+    height: 80%;
+    padding: 10%;
+}
+.weatherPropValue {
+    text-align: center;
+    font-size: 200%;
+}
+.weatherPropContainer {
+    display: inline-block;
+    width: 25%;
+    height: calc(attr(width));
+}
+.weatherContainer {
+    width: 61%;
+}
+
+.weatherContainerTitle {
+    text-align: center;
+    font-size: 400%;
+}

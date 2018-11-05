@@ -1,0 +1,73 @@
+.roomComponent {
+    display: inline-block;
+    position: absolute;
+    left: 62.9%;
+    width: 34.1%;
+    height: 32%;
+}
+.roomComponent .label {
+    position: absolute;
+    left: 1%;
+}
+.roomComponent .rc-slider {
+    width: 36%;
+    left: 5%;
+    padding-top: 8px;
+    position: absolute;
+}
+
+.rc-slider-handle {
+    color: black;
+}
+.row1 {
+    top: 5%;
+    position: absolute;
+}
+.row2 {
+    top: 17%;
+    position: absolute;
+}
+.row3 {
+    top: 30%;
+    position: absolute;
+}
+.row4 {
+    top: 50%;
+    position: absolute;
+}
+.allOffButton {
+    left: 7.5%;
+    width: 25%;
+    height: 100px;
+}
+.allSomethingButton {
+    left: 37.5%;
+    width: 25%;
+    height: 100px;
+}
+.fullBlastButton {
+    left: 67.5%;
+    width: 25%;
+    height: 100px;
+}
+.coffeeLabel {
+    padding-top: 3px;
+    left: 33%;
+}
+.coffeeTime {
+    left: 45%;
+}
+.timerSwitch {
+    left: 63%;
+}
+.coffeeSwitch {
+    left: 83%;
+}
+.left {
+    left: 16% !important;
+}
+.right {
+    left: 59% !important;
+}
+
+
