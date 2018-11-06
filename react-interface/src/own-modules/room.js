@@ -5,14 +5,6 @@ import Switch from 'react-toggle-switch'
 import io from 'socket.io-client';
 import "../../node_modules/react-toggle-switch/dist/css/switch.min.css" 
 const socket = io(":35639");
-var status = {
-    0: {},
-    1: {},
-    2: {},
-    3: {},
-    6: {},
-    7: {}
-}
 export default class extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +19,9 @@ export default class extends Component {
                 marginTop: -8,
                 backgroundColor: 'brown',
             }],
+            //this step of storing each value individuallu is not really necessary
+            //data is already at "correct" usable form straight from socket
+            //however it's more straightforward to change it like this from react-side
             on0: 1,
             on1: 1,
             bri2: 200,
@@ -51,7 +46,7 @@ export default class extends Component {
                 return;
             }
             for (let i = 0; i < 20; i++) {
-                if (i in status) {
+                if (i in data) {
                     let newThings = {}
                     for (let key in data[i]) {
                         newThings[key + i] = data[i][key];
@@ -62,15 +57,13 @@ export default class extends Component {
                     this.setState(newThings);
                 }
             }
-            // console.log(this.state["bri2"]);
         });
     }
+    // do not listen to broadcast while moving sliders
     interruptBroadcast(val) {
         this.setState({listeningBroadcast: -1});
     }
     endInterruptBroadcast() {
-        console.log("from mouseup");
-        console.log(this.state.bri2);
         this.setState({listeningBroadcast: 0})
     }
     render() {
@@ -203,8 +196,6 @@ class CustomSlider extends React.Component {
                 }}
                 handleStyle={this.state.style}
                 onAfterChange={this.changed}
-                
-                
             />
         );
     }
