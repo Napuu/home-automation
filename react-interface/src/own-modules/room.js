@@ -56,7 +56,7 @@ export default class extends Component {
                     for (let key in data[i]) {
                         newThings[key + i] = data[i][key];
                     }
-                    if (newThings["on" + i] == 0) {
+                    if (newThings["on" + i] === 0) {
                         newThings["bri" + i] = -1;
                     }
                     this.setState(newThings);
@@ -140,7 +140,7 @@ class CustomSwitch extends React.Component {
         super(props);
         this.clicked = this.clicked.bind(this);
         let className = "row" + props.row;
-        if (props.class != undefined) className += " " + props.class + " ";
+        if (props.class !== undefined) className += " " + props.class + " ";
         else className += " left ";
         this.state = {
             switched: true,
@@ -186,10 +186,7 @@ class CustomSlider extends React.Component {
     } 
     changed(value) {
         let data = {target: this.props.target, mode: this.props.mode, value: value}
-        let newState = {}
         socket.emit("accessory", data);
-        // newState[this.props.mode + this.props.target] = value;
-        // this.props.that.setState(newState);
     }
     render() {
         return(
