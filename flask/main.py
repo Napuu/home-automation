@@ -138,12 +138,17 @@ coffeeTimer()
 
 #  check if my main computer is up
 #  if its up, turn screens and speakers on
+
+# keep track of state and only broadcast control signal if state has changed
+previousState = None
 def isUpTimer():
     isUp = isLaptopUp()
-    if (isUp):
+    global previousState
+    if (isUp and isUp != previousState):
         transmitter.screens(1)
-    else:
+    elif (not isUp and isUp != previousState):
         transmitter.screens(0)
+    previousState = isUp
     uTimer = threading.Timer(5, isUpTimer)
     uTimer.start()
 isUpTimer()
