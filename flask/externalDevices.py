@@ -6,14 +6,14 @@ class Transmitter:
         self.nexaSerial = None
         self.coffeeSerial = None
     def initialize(self):
-        self.nexaSerial = serial.Serial("/dev/ttyUSB0")
-        self.coffeeSerial = serial.Serial("/dev/ttyUSB1")
+        self.nexaSerial = serial.Serial("/dev/ttyUSB1")
+        self.coffeeSerial = serial.Serial("/dev/ttyUSB0")
     
     def screens(self, status):
-        self.nexaSerial.write(("39849433 0 " + str(status) + " 0").encode())
+        self.nexaSerial.write(("39849533 0 " + str(status) + " 0").encode())
 
     def coffee(self, status):
-        self.nexaSerial.write(("2051610 0 " + str(status) + " 0").encode())
+        self.nexaSerial.write(("2051615 0 " + str(status) + " 0").encode())
         time.sleep(2)
         coffeeMessage = "coffeeOn"
         if (status == 0):
