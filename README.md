@@ -6,3 +6,5 @@ Consists of four parts, of which three are included in this project
 * Web interface using React - UI
 * Node.js, socket.io backend - communicating between Flask and React 
 * [homebridge]: https://github.com/nfarina/homebridge - Apple HomeKit support without Apple TV
+
+![reactui](screenshot_react-interface.png?raw=true "Screenshot of web interface")
