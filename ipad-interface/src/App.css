@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+  display: inline-block;
+}
+
+.blockHolder {
+  display: inline-block;
+  margin: 6px;
+}
+/* the button  */
+.block {
+  -webkit-appearance: none;-webkit-appearance: none;
+  width: 180px;
+  height: 190px;
+  text-align: center;
+  display: block;
+  border-radius: 0px;
+  margin-bottom: 6px;
+}
+.block5 {
+  height: 76px;
+  margin-bottom: 2.5px;
+}
+/* button label */
+.blockLabel {
+  border: black solid 1px;
+  vertical-align: middle;
+  /* margin-left: 1px; */
+}
+html {
+  filter: brightness(0.8) sepia(0.9);
+  -o-filter: brightness(0.8) sepia(0.9);
+  -ms-filter: brightness(0.8) sepia(0.9);
+  -moz-filter: brightness(0.8) sepia(0.9);
+  /* -webkit-filter: brightness(0.1) sepia(1.0); */
+
+}
+
