@@ -32,7 +32,7 @@ html {
   -o-filter: brightness(0.8) sepia(0.9);
   -ms-filter: brightness(0.8) sepia(0.9);
   -moz-filter: brightness(0.8) sepia(0.9);
-  /* -webkit-filter: brightness(0.1) sepia(1.0); */
+  -webkit-filter: brightness(0.3) sepia(1.0);
 
 }
 

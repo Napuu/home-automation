@@ -16,7 +16,7 @@ let Button = props => {
   return (
     <button
       className={classes}
-      onClick={ev => {
+      onTouchStart={ev => {
         props.packets.forEach(packet => {
           socket.emit('accessory', {
             target: packet.target,
