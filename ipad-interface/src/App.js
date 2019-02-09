@@ -4,11 +4,7 @@ import io from 'socket.io-client';
 
 const socket = io('192.168.1.122:35639');
 
-var allData = {};
 
-socket.on('status', data => {
-  allData = data;
-});
 let Button = props => {
   let classes = 'block';
   if (props.additionalClass !== undefined)
@@ -16,7 +12,8 @@ let Button = props => {
   return (
     <button
       className={classes}
-      onClick={ev => {
+      onTouchMove={ev => {ev.preventDefault()}}
+      onTouchStart={ev => {
         props.packets.forEach(packet => {
           socket.emit('accessory', {
             target: packet.target,
@@ -71,22 +68,67 @@ let OnOffDimButton = props => {
       ],
     },
   ].reverse();
-  let elements = packetGroups.map(group => {
+  let elements = packetGroups.map(( group, index)  => {
     return (
       <Button
         additionalClass={'block5'}
         text={group.text}
         packets={group.packets}
+        key={(new Date()).getTime() + index}
       />
     );
   });
-  elements.push(<div className="blockLabel">{props.text}</div>);
+  elements.push(<div key={(new Date()).getTime() + 100} className="blockLabel">{props.text}</div>);
   return <div className="blockHolder">{elements}</div>;
+};
+let ModeButton = props => {
+  return (
+    <div className="blockHolder">
+      <Button
+        packets={props.packets}
+        text={props.text}
+        additionalClass="thiccBlock"
+      />
+    </div>
+  );
 };
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <ModeButton
+          packets={[
+            {target: 0, mode: 'on', value: 0},
+            {target: 1, mode: 'on', value: 0},
+            {target: 2, mode: 'on', value: 0},
+            {target: 3, mode: 'on', value: 0},
+          ]}
+          text="1"
+        />
+        <ModeButton
+          packets={[
+            {target: 0, mode: 'on', value: 0},
+            {target: 1, mode: 'on', value: 0},
+            {target: 2, mode: 'on', value: 1},
+            {target: 2, mode: 'bri', value: 254},
+            {target: 2, mode: 'ct', value: 400},
+            {target: 3, mode: 'on', value: 1},
+            {target: 3, mode: 'bri', value: 51},
+            {target: 3, mode: 'ct', value: 400},
+          ]}
+          text="2"
+        />
+        <ModeButton 
+          packets={[
+            {target: 0, mode: 'on', value: 1},
+            {target: 1, mode: 'on', value: 1},
+            {target: 2, mode: 'on', value: 1},
+            {target: 2, mode: 'bri', value: 254},
+            {target: 2, mode: 'ct', value: 222},
+            {target: 3, mode: 'on', value: 1},
+            {target: 3, mode: 'bri', value: 254},
+            {target: 3, mode: 'ct', value: 222},
+          ]}text="3" />
         <OnOffButton
           onPackets={[{target: 0, mode: 'on', value: 1}]}
           offPackets={[{target: 0, mode: 'on', value: 0}]}
@@ -97,7 +139,7 @@ class App extends Component {
           offPackets={[{target: 1, mode: 'on', value: 0}]}
           text={'pöytä'}
         />
-        <OnOffDimButton target={2} text={'katto'} />
+        <OnOffDimButton target={2} text={'mato'} />
         <OnOffDimButton target={3} text={'katto'} />
       </div>
     );
