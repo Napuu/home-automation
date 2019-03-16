@@ -8,3 +8,8 @@ Consists of four parts, of which three are included in this project
 * [homebridge]: https://github.com/nfarina/homebridge - Apple HomeKit support without Apple TV
 
 ![reactui](screenshot_react-interface.png?raw=true "Screenshot of web interface")
+
+Each startup script should be ran as 
+```
+pm2 start start*** --interpreter=bash
+```
