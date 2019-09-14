@@ -5,6 +5,7 @@ import json
 from flask import Flask, request
 import datetime
 import threading
+import subprocess
 
 #local imports
 from ping import isLaptopUp 
@@ -144,6 +145,15 @@ switches = {
 
 
 app = Flask(__name__)
+
+@app.route("/room_conditions")
+def room_conditions():
+    s = subprocess.check_output(["dht22"]).decode().split(" ")
+    return "{\"temperature\":" + s[1] + ",\"humidity\":"+ s[3] + "}"
+
+@app.route("/humidity")
+def humidity():
+    return subprocess.check_output(["dht22"]).decode().split(" ")[3]
 
 @app.route("/ds")
 def ds():
