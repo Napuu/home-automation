@@ -2,7 +2,9 @@ import sys
 import RPi.GPIO as g
 import requests
 import json
+import time
 from flask import Flask, request
+from flask_cors import CORS
 import datetime
 import threading
 import subprocess
@@ -144,12 +146,25 @@ switches = {
 }
 
 
+
 app = Flask(__name__)
+CORS(app)
+
+latestTemperature = "0"
+latestHumidity = "0"
+latestReading = 0
 
 @app.route("/room_conditions")
 def room_conditions():
-    s = subprocess.check_output(["dht22"]).decode().split(" ")
-    return "{\"temperature\":" + s[1] + ",\"humidity\":"+ s[3] + "}"
+    global latestTemperature, latestHumidity, latestReading
+    timenow = time.time()
+    if (timenow - latestReading > 30):
+        s = subprocess.check_output(["dht22"]).decode().split(" ")
+        if s[1] != "0.0":
+            latestTemperature = s[1]
+            latestHumidity = s[3]
+            latestReading = timenow
+    return "{\"temperature\":" + latestTemperature + ",\"humidity\":"+ latestHumidity + "}"
 
 @app.route("/humidity")
 def humidity():
