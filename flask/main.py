@@ -160,9 +160,10 @@ def room_conditions():
     timenow = time.time()
     if (timenow - latestReading > 30):
         s = subprocess.check_output(["dht22"]).decode().split(" ")
-        latestTemperature = s[1]
-        latestHumidity = s[3]
-        latestReading = timenow
+        if s[1] != "0.0":
+            latestTemperature = s[1]
+            latestHumidity = s[3]
+            latestReading = timenow
     return "{\"temperature\":" + latestTemperature + ",\"humidity\":"+ latestHumidity + "}"
 
 @app.route("/humidity")
