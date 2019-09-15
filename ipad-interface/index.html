@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <style>
+        #container {
+            display: flex;
+            flex-direction: column;
+        }
+        body {
+            color: grey;
+            background: black;
+        }
+        .button {
+            width: 33.33333%;
+            padding-top: 315px;
+            height: 315px;
+            text-align: center;
+            border: 1px solid black;
+        }
+
+        .row {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="row">
+            <div class="button">OFF</div>
+            <div class="button">DIM</div>
+            <div class="button">FULL</div>
+        </div>
+        <div class="row">
+            <div class="button">DESK</div>
+            <div class="button">WHITE</div>
+            <div class="button">SCREENS</div>
+        </div>
+    </div>
+    <script>
+
+        function ff(url, cb) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    cb(xhr.responseText);
+                }
+            }
+            xhr.open('GET', url, true);
+            xhr.send(null);
+        }
+        function ps(status) {
+            var oldStatus = JSON.parse(status).on;
+            var newStatus = 1;
+            if (oldStatus === 1) newStatus = 0;
+            return newStatus;
+        }
+        document.getElementById("container").addEventListener("touchmove", function (ev) { ev.preventDefault(); });
+        document.getElementById("container").addEventListener("touchstart", function (ev) {
+            const text = ev.target.innerHTML;
+            const baseURL = "http://192.168.1.122:5000";
+            if (text === "OFF") {
+                ff(baseURL + "/ds?target=0&on=0");
+                ff(baseURL + "/ds?target=1&on=0");
+                ff(baseURL + "/ds?target=2&on=0");
+                ff(baseURL + "/ds?target=3&on=0");
+            } else if (text === "DIM") {
+                ff(baseURL + "/ds?target=0&on=0")
+                ff(baseURL + "/ds?target=1&on=0")
+                ff(baseURL + "/ds?target=2&on=1")
+                ff(baseURL + "/ds?target=3&on=1")
+
+                ff(baseURL + "/ds?target=2&on=1&ct=400&bri=63")
+                ff(baseURL + "/ds?target=3&on=1&ct=400&bri=63")
+            } else if (text === "FULL") {
+                ff(baseURL + "/ds?target=0&on=1")
+                ff(baseURL + "/ds?target=1&on=1")
+                ff(baseURL + "/ds?target=2&on=1")
+                ff(baseURL + "/ds?target=3&on=1")
+
+                ff(baseURL + "/ds?target=2&on=1&ct=200&bri=254")
+                ff(baseURL + "/ds?target=3&on=1&ct=200&bri=254")
+            } else if (text === "DESK") {
+                ff(baseURL + "/ds?target=1", function (status) {
+                    ff(baseURL + "/ds?target=1&on=" + ps(status));
+                });
+            } else if (text === "WHITE") {
+                ff(baseURL + "/ds?target=0", function (status) {
+                    ff(baseURL + "/ds?target=0&on=" + ps(status));
+                });
+            } else if (text === "SCREENS") {
+                ff(baseURL + "/ds?target=9", function (status) {
+                    ff(baseURL + "/ds?target=9&on=" + ps(status));
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
