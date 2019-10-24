@@ -1,16 +1,5 @@
 <template>
     <div class="roomStatus">
-        <div class="lights">
-            <div class="header">Light statuses</div>
-            <div id="desk">Desk lamp: {{this.deskOn}}</div>
-            <div id="white">White lamp: {{this.whiteOn}}</div>
-            <div id="ceilingon">Ceiling lamp: {{this.ceilingOn}}</div>
-            <div id="ceilingbri">Ceiling lamp brightness: {{this.ceilingBrightness}} (0-254)</div>
-            <div id="ceilingct">Ceiling lamp hue: {{this.ceilingHue}} (153-454)</div>
-            <div id="ambienceon">Ambience lamp: {{this.ceilingOn}}</div>
-            <div id="ambiencebri">Ambience lamp brightness: {{this.ceilingBrightness}} (0-254)</div>
-            <div id="ambiencect">Ambience lamp hue: {{this.ceilingHue}} (153-454)</div>
-        </div>
         <div class="conditions">
             <div class="header">Room conditions</div>
             <div id="temperature">Temperature: {{this.temperature}} °C</div>
@@ -144,7 +133,6 @@ export default class RoomStatus extends Vue {
 .roomStatus {
     margin: 10px;
     font-weight: bold;
-    width: 33%;
 }
 .roomStatus div {
     font-size-adjust: 1.02;

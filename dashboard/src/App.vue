@@ -1,6 +1,10 @@
 <template>
     <div id="app">
-        <RoomStatus />
+        <div id="col2">
+            <Calendar />
+            <RoomStatus />
+            <Clock />
+        </div>
         <Weather />
     </div>
 </template>
@@ -9,12 +13,16 @@
 import { Component, Vue } from "vue-property-decorator";
 import RoomStatus from "./components/RoomStatus.vue";
 import Weather from "./components/Weather.vue";
+import Calendar from "./components/Calendar.vue";
+import Clock from "./components/Clock.vue";
 import SunCalc from "suncalc";
 
 @Component({
     components: {
         RoomStatus,
-        Weather
+        Weather,
+        Calendar,
+        Clock
     }
 })
 export default class App extends Vue {
@@ -32,7 +40,7 @@ export default class App extends Vue {
           //document.body.style.filter = "invert(1) hue-rotate(180deg)";
           console.log("night");
         }
-        else document.body.style.filter = "";
+        //else document.body.style.filter = "";
         setTimeout(this.poll, 1000 * 60 * 5);
     }
 }
@@ -46,7 +54,13 @@ export default class App extends Vue {
     color: grey;
     display: flex;
 }
+#col2 {
+    width: 33%;
+}
 body {
-    background: #DDD;
+    margin: 0px;
+    padding: 0px;
+    background: black;
+    filter: invert(1) hue-rotate(180deg) !important;
 }
 </style>
