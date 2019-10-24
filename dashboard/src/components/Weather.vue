@@ -138,7 +138,6 @@ export default class Weather extends Vue {
                 const positions = getTag(resp, "gmlcov:positions").split("\n");
                 const currentLocation = positions[positions.length - 2].trim().split(" ");
                 const latestObservationDate = new Date(parseInt(currentLocation[3]) * 1000);
-
                 const pad = (date: any) => {if (parseInt(date) < 10) {return "0" + date} else { return date; }};
                 this.prettifiedDate = pad(latestObservationDate.getHours()) + ":" + pad(latestObservationDate.getMinutes()) + " " + latestObservationDate.getDate() + "." + latestObservationDate.getMonth() + "."
                 if (currentConditions !== undefined) {
@@ -178,6 +177,7 @@ export default class Weather extends Vue {
     // https://cdn.fmi.fi/symbol-images/smartsymbol/v3/p/101.svg
     private async startPolling() {}
     private async poll() {
+        this.getObservations();
         const params = this.ts.getParams();
         params.t = new Date().getMilliseconds();
         this.ts.updateParams(params);
