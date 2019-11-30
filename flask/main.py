@@ -8,6 +8,8 @@ from flask_cors import CORS
 import datetime
 import threading
 import subprocess
+import Adafruit_DHT
+import serial
 
 #local imports
 from ping import isLaptopUp 
@@ -40,6 +42,8 @@ def initPins():
     g.setup(17, g.OUT)
     g.setup(27, g.OUT)
 initPins()
+
+s0 = serial.Serial("/dev/ttyUSB0")
 
 # hue lightbulbs color temperature range - 153-454
 # hue lightbulbs brightness range - 0-254
@@ -93,9 +97,7 @@ def switch2(specs):
     g.output(6, on)
 
 def switch3(specs):
-    on = int(specs["on"]) 
-    g.output(19, on)
-    g.output(26, on)
+    s0.write(("39849533 0 " + str(specs["on"]) + " 0").encode())
 
 def switch4(specs):
     on = int(specs["on"]) 
@@ -153,17 +155,22 @@ CORS(app)
 latestTemperature = "0"
 latestHumidity = "0"
 latestReading = 0
-
+sensor = Adafruit_DHT.DHT22
+sensorPin = 4
 @app.route("/room_conditions")
 def room_conditions():
     global latestTemperature, latestHumidity, latestReading
     timenow = time.time()
     if (timenow - latestReading > 30):
-        s = subprocess.check_output(["dht22"]).decode().split(" ")
-        if s[1] != "0.0":
-            latestTemperature = s[1]
-            latestHumidity = s[3]
-            latestReading = timenow
+        h, t = Adafruit_DHT.read_retry(sensor, sensorPin)
+        latestTemperature = '{0:0.1f}'.format(t)
+        latestHumidity = '{0:0.1f}'.format(h)
+        latestReading = timenow
+        # s = subprocess.check_output(["dht22"]).decode().split(" ")
+        # if s[1] != "0.0":
+            # latestTemperature = s[1]
+            # latestHumidity = s[3]
+            # latestReading = timenow
     return "{\"temperature\":" + latestTemperature + ",\"humidity\":"+ latestHumidity + "}"
 
 @app.route("/humidity")
