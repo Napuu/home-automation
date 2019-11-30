@@ -1,0 +1,5 @@
+pyserial
+Adafruit_DHT
+flask
+flask_cors
+RPI.GPIO

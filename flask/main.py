@@ -166,11 +166,6 @@ def room_conditions():
         latestTemperature = '{0:0.1f}'.format(t)
         latestHumidity = '{0:0.1f}'.format(h)
         latestReading = timenow
-        # s = subprocess.check_output(["dht22"]).decode().split(" ")
-        # if s[1] != "0.0":
-            # latestTemperature = s[1]
-            # latestHumidity = s[3]
-            # latestReading = timenow
     return "{\"temperature\":" + latestTemperature + ",\"humidity\":"+ latestHumidity + "}"
 
 @app.route("/humidity")
